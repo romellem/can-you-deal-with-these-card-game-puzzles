@@ -104,8 +104,8 @@ onmessage = function(e) {
 		// Tally our win or loss
 		games[status] += 1;
 
-		// Send an update back every 25 simulations
-		if (i % 25 === 0) {
+		// Send an update back every 100 simulations
+		if (i % 100 === 0) {
 			postMessage({type: 'update', games: games, number_of_simulations: number_of_simulations});
 		}
 	}
