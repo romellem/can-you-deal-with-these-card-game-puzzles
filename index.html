@@ -27,5 +27,14 @@
 	<div id="main">
 		Hello World!
 	</div>
+	<script>
+	function ready(fn) {
+		if (document.readyState != 'loading'){
+			fn();
+		} else {
+			document.addEventListener('DOMContentLoaded', fn);
+		}
+	}
+	</script>
 	</body>
 </html>
