@@ -21,12 +21,29 @@
 				padding-left: 1rem;
 				padding-right: 1rem;
 			}
+
+			@keyframes ellipsis {
+				to {
+					width: 1.25em;    
+				}
+			}
+
+			.loading:after {
+				overflow: hidden;
+				display: inline-block;
+				vertical-align: bottom; 
+
+				animation: ellipsis steps(4, end) 3s infinite;
+				content: "\2026"; /* ascii code for the ellipsis character */
+
+				width: 0px;
+			}
 		</style>
 	</head>
 	<body>
-	<div id="main">
-		Hello World!
-	</div>
+	<section id="main">
+		<div class="loading">Running</div>
+	</section>
 
 	<script type="text/javascript" src="js/main.js"></script>
 	</body>
