@@ -24,9 +24,6 @@ function numberWithCommas(x) {
 
 ready(function() {
 	var time_start, time_end;
-	if (!window.Performance) {
-		var performance = {now: function(){return 0;}};
-	}
 
 	if (window.Worker) {
 		// Style numeral input
@@ -62,14 +59,18 @@ ready(function() {
 				$1('#submit-button').className = 'btn btn-primary';
 
 				// Get execution time
-				// time_end = performance.now();
-				// console.log('Executed in ' + (time_end - time_start) + ' milliseconds');
+				if (typeof performance.now !== 'undefined') {
+					time_end = performance.now();
+					console.log('Executed in ' + (time_end - time_start) + ' milliseconds');
+				}
 			}
 		};
 
 		$1('#submit-button').addEventListener('click', function(e) {
 			e.preventDefault();
-			// time_start = performance.now();
+			if (typeof performance.now !== 'undefined') {
+				time_start = performance.now();
+			}
 
 			// Get number of simulations (default is 100 if they enter a bad value)
 			var number_of_simulations = parseInt(number_of_simulations_input.getRawValue());
