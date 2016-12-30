@@ -57,6 +57,21 @@ ready(function() {
 
 				// Enable button
 				$1('#submit-button').className = 'btn btn-primary';
+				$1('#running-icon-indicator').className = "icon-right-circled";
+
+				// Create animated checkmark
+				var checkmark = document.createElement('div');
+				checkmark.className = 'checkmark-circle';
+				checkmark.id = 'animated-checkmark';
+				var background = document.createElement('div');
+				background.className = 'background';
+				var draw = document.createElement('div');
+				draw.className = 'checkmark draw';
+
+				checkmark.appendChild(background);
+				checkmark.appendChild(draw);
+
+				$1('#form').appendChild(checkmark);
 
 				// Get execution time
 				if (typeof performance.now !== 'undefined') {
@@ -66,7 +81,7 @@ ready(function() {
 			}
 		};
 
-		$1('#submit-button').addEventListener('click', function(e) {
+		var onFormSubmit = function(e) {
 			e.preventDefault();
 			if (typeof performance.now !== 'undefined') {
 				time_start = performance.now();
@@ -87,13 +102,29 @@ ready(function() {
 				</ul>
 			</div>`;
 
+			// Set icon to hourglass
+			$1('#running-icon-indicator').className = "icon-hourglass";
+
+			// Remove animated checkmark (if it exists)
+			if ($1('#animated-checkmark')) {
+				$1('#form').removeChild($1('#animated-checkmark'));
+			}
+
 			$1('#win-probability').innerHTML = '';
 			$1('#win-probability').scrollIntoView();
 
-			this.className += " disabled";
+			$1('#submit-button').className += " disabled";
 
 			worker.postMessage([number_of_simulations]);
-		});		
+		};
+
+		$1('#submit-button').addEventListener('click', onFormSubmit);
+		$1('#simulations').addEventListener('keypress', function(e) {
+			if (e.which == 13 || e.keyCode == 13) {
+				onFormSubmit(e);
+			}
+		});
+
 	} else {
 		$1('#main').innerHTML = 'Sorry, your web browser must support ' + 
 			'<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Workers</a> ' + 
