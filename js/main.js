@@ -21,25 +21,51 @@ function $1(selector, context) {
 ready(function() {
 	if (window.Worker) {
 		// Style numeral input
-		var cleave = new Cleave('#simulations', {
+		var number_of_simulations_input = new Cleave('#simulations', {
 			numeral: true,
 			numeralThousandsGroupStyle: 'thousand'
-		});
-
-		$1('#submit-button').addEventListener('click', function(e) {
-			e.preventDefault();
-
-			console.log('hello');
 		});
 
 		// Browser supports Web Workers
 		var worker = new Worker('./js/worker.js');
 
 		worker.onmessage = function(e) {
-			console.log('From worker:' + e.data);
+			if (e.data.type === 'update') {
+				$1('#results .status').innerHTML = `<ul>
+					<li>Wins: ${e.data.games.win}</li>
+					<li>Losses: ${e.data.games.loss}</li>
+				</ul>`;
+			} else if (e.data.type === 'final') {
+				$1('#results .status').innerHTML = `<ul>
+					<li>Wins: ${e.data.games.win}</li>
+					<li>Losses: ${e.data.games.loss}</li>
+					<li>Win Probability: ${e.data.games.win / e.data.number_of_simulations}
+				</ul>`;
+
+				// Enable button
+				$1('#submit-button').className = 'btn btn-primary';
+			}
 		};
 
-		worker.postMessage([5]);
+		$1('#submit-button').addEventListener('click', function(e) {
+			e.preventDefault();
+
+			// Get number of simulations (default is 100 if they enter a bad value)
+			var number_of_simulations = parseInt(number_of_simulations_input.getRawValue());
+			if (!(number_of_simulations > 0)) {
+				number_of_simulations = 100;
+				number_of_simulations_input.setRawValue(number_of_simulations);
+			}
+
+			$1('#results').innerHTML = '<div class="loading">Running</div><div class="status"></div>';
+			this.className += " disable";
+
+			worker.postMessage([number_of_simulations]);
+		});
+
+		
+
+		
 	} else {
 		$1('#main').innerHTML = 'Sorry, your web browser must support ' + 
 			'<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Workers</a> ' + 
