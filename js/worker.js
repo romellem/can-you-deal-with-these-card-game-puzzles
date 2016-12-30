@@ -80,7 +80,7 @@ function getShuffledDeck() {
 	return shuffle([...Array(52).keys()]);
 }
 
-onmessage = function(e) {
+self.addEventListener('message', function(e) {
 	var number_of_simulations = e.data[0];
 	console.log('Running ' + number_of_simulations + ' times');
 
@@ -112,4 +112,4 @@ onmessage = function(e) {
 
 	postMessage({type: 'final', games: games, number_of_simulations: number_of_simulations});
 	// close();
-};
+}, false);
