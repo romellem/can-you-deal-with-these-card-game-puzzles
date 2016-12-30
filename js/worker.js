@@ -86,8 +86,9 @@ onmessage = function(e) {
 
 	var games = {win: 0, loss: 0};
 
+	let deck = [...Array(52).keys()];
 	for (let i = 0; i < number_of_simulations; i++) {
-		let deck = getShuffledDeck();
+		deck = shuffle(deck);
 
 		let status = 'win';
 		deck.some((card, index) => {
