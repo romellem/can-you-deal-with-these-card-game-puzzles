@@ -46,7 +46,7 @@ ready(function () {
 						var win_percentage = e.data.games.win / e.data.number_of_simulations * 100;
 						$1('#results .status').innerHTML = '<ul>\n\t\t\t\t\t\t<li>Wins: ' + numberWithCommas(e.data.games.win) + '</li>\n\t\t\t\t\t\t<li>Losses: ' + numberWithCommas(e.data.games.loss) + '</li>\n\t\t\t\t\t\t<li>Win Probability: <strong>' + win_percentage.toFixed(3) + '%</strong>\n\t\t\t\t\t</ul>';
 
-						$1('#win-probability').innerHTML = '<h1 class="probability"><strong>' + win_percentage.toFixed(3) + '%</strong> chance you will win this game.</h1>';
+						$1('#win-probability').innerHTML = '<h1 class="probability">There is a <strong>' + win_percentage.toFixed(3) + '%</strong> chance you will win this game.</h1>';
 
 						$1('#win-probability').scrollIntoView();
 
