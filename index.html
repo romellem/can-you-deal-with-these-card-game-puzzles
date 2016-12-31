@@ -56,6 +56,14 @@
 				font-weight: bold;
 				color: #449d44;
 			}
+
+			header {
+				transition: all 0.3s ease;
+			}
+
+			.hide {
+				display: none !important;
+			}
 		</style>
 
 		<script type="text/javascript" src="./js/cleave.js"></script>
@@ -63,8 +71,11 @@
 	<body>
 	<section id="main">
 
-		<header>
-			<h1>Lonely Card Game Puzzle</h1>
+		<h1>Lonely Card Game Puzzle</h1>
+		<div class="hidden-lg-up">
+			<a id="show-description" href="#">Show original puzzle description</a>
+		</div>
+		<header class="hidden-md-down">
 			<blockquote class="blockquote" cite="http://fivethirtyeight.com/features/can-you-deal-with-these-card-game-puzzles/">
 				<p>On snowy afternoons, you like to play a solitaire &ldquo;game&rdquo; with a standard,
 				randomly shuffled deck of 52 cards. You start dealing cards face up, one at a time,

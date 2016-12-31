@@ -165,6 +165,13 @@ ready(function() {
 				onFormSubmit(e);
 			}
 		});
+
+		$1('#show-description').addEventListener('click', function(e) {
+			e.preventDefault();
+
+			this.className = 'hide';
+			$1('header').className = '';
+		});
 	} else {
 		$1('#main').innerHTML = 'Sorry, your web browser must support ' + 
 			'<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Workers</a> ' + 
