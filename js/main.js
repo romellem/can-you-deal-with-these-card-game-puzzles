@@ -54,7 +54,7 @@ ready(function() {
 						<li>Win Probability: <strong>${win_percentage.toFixed(3)}%</strong>
 					</ul>`;
 
-					$1('#win-probability').innerHTML = '<h1 class="probability">There is a <strong>' + win_percentage.toFixed(3) + '%</strong> chance you will win this game.</h1>';
+					$1('#win-probability').innerHTML = '<h2 class="probability">There is a <strong>' + win_percentage.toFixed(3) + '%</strong> chance you will win this game.</h2>';
 
 					$1('#win-probability').scrollIntoView();
 
